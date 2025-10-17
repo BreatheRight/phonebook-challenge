@@ -1,29 +1,82 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const FALLBACK_CONTACTS = [
+// 10 hardcoded contacts for Section 1
+const CONTACTS = [
     {
         id: 1,
-        name: "Ada Lovelace",
-        phone: "(555) 010-0101",
-        email: "ada@example.com",
+        name: "Paul Thomas Anderson",
+        phone: "(555) 123-4567",
+        email: "sarah.johnson@company.com",
+        photo: "ContactIcon.png",
     },
     {
         id: 2,
-        name: "Alan Turing",
-        phone: "(555) 010-0102",
-        email: "alan@example.com",
+        name: "Joaquin Phoenix",
+        phone: "(555) 234-5678",
+        email: "michael.chen@company.com",
+        photo: "ContactIcon.png",
     },
     {
         id: 3,
-        name: "Grace Hopper",
-        phone: "(555) 010-0103",
-        email: "grace@example.com",
+        name: "Philip Seymour Hoffman",
+        phone: "(555) 345-6789",
+        email: "emily.rodriguez@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 4,
+        name: "Amy Adams",
+        phone: "(555) 456-7890",
+        email: "james.williams@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 5,
+        name: "Laura Dern",
+        phone: "(555) 567-8901",
+        email: "lisa.anderson@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 6,
+        name: "Rami Malek",
+        phone: "(555) 678-9012",
+        email: "david.thompson@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 7,
+        name: "Jesse Plemons",
+        phone: "(555) 789-0123",
+        email: "jennifer.lee@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 8,
+        name: "Ambyr Childers",
+        phone: "(555) 890-1234",
+        email: "robert.martinez@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 9,
+        name: "Madisen Beaty",
+        phone: "(555) 901-2345",
+        email: "amanda.taylor@company.com",
+        photo: "ContactIcon.png",
+    },
+    {
+        id: 10,
+        name: "Leslie Jones",
+        phone: "(555) 012-3456",
+        email: "christopher.brown@company.com",
+        photo: "ContactIcon.png",
     },
 ];
 
 const App = () => {
-    const [contacts, setContacts] = useState(FALLBACK_CONTACTS);
+    const [contacts, setContacts] = useState(CONTACTS);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -68,6 +121,26 @@ const App = () => {
 
             <section className="contacts" aria-labelledby="contacts-heading">
                 <h2 id="contacts-heading">Contacts</h2>
+                <ul className="contacts-list">
+                    {contacts.map((contact) => (
+                        <li key={contact.id} className="contact-card">
+                            <img
+                                src={contact.photo}
+                                alt={`Profile picture of ${contact.name}`}
+                                className="contact-photo"
+                            />
+                            <div className="contact-info">
+                                <h3>{contact.name}</h3>
+                                <p>
+                                    <strong>Phone:</strong> {contact.phone}
+                                </p>
+                                <p>
+                                    <strong>Email:</strong> {contact.email}
+                                </p>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </section>
 
             <section className="form" aria-labelledby="form-heading">
