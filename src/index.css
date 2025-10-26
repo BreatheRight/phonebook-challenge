@@ -1,21 +1,29 @@
 :root {
-  /* Light theme colors */
-  --bg: #0f0f10;
-  --fg: #e7e7e9;
-  --muted: #9aa0a6;
-  --border: #2b2b2e;
-  --accent: #7c8cff;
-}
+  /* Baase colorset, deep black, off/paper white and accents (experimenting) */
+  --bg: #091717;
+  --bg-secondary: #0f2020;
+  --bg-tertiary: #1a3030;
+  --fg: #fbfaf4;
+  --text-primary: #fbfaf4;
+  --text-secondary: #a8a8a0;
+  --accent: #20808d;
+  --accent-hover: #2a9aa9;
+  --border: #1a3030;
+  --border-light: #2a4040;
 
-@media (prefers-color-scheme: light) {
-  :root {
-    /* Dark theme colors for media query */
-    --bg: #ffffff;
-    --fg: #1d1d1f;
-    --muted: #6e6e73;
-    --border: #e5e5ea;
-    --accent: #3c5cff;
-  }
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  --transition-fast: 40ms ease;
+  --transition-normal: 100ms ease;
 }
 
 * {
@@ -30,6 +38,7 @@ body,
 
 body {
     margin: 0;
+    padding: 0;
     font-family:
         system-ui,
         -apple-system,
@@ -44,10 +53,17 @@ body {
         "Segoe UI Emoji";
     color: var(--fg);
     background: var(--bg);
+    line-height: 1.6;
 }
 
 a {
     color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--accent-hover);
 }
 
 button,
@@ -55,4 +71,12 @@ input,
 select {
     font: inherit;
     color: inherit;
+}
+
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
