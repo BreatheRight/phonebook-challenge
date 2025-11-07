@@ -1,8 +1,8 @@
 :root {
   /* Baase colorset, deep black, off/paper white and accents (experimenting) */
-  --bg: #091717;
-  --bg-secondary: #0f2020;
-  --bg-tertiary: #1a3030;
+  --bg: #000101;
+  --bg-secondary: #0f202000;
+  --bg-tertiary: #1a30309b;
   --fg: #fbfaf4;
   --text-primary: #fbfaf4;
   --text-secondary: #a8a8a0;
