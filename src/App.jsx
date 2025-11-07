@@ -314,13 +314,14 @@ const PROJECTS = [
 ];
 
 const App = () => {
+    const DEFAULT_ROWS = 10;
     const [contacts, setContacts] = useState(CONTACTS);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [query, setQuery] = useState("");
 
     const [mode, setMode] = useState("table"); // two modes for user selection: defualt table or spotlight for singles
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProject, setSelectedProject] = useState("");
 
@@ -370,6 +371,7 @@ const App = () => {
         setSelectedProject(p);
         if (p) {
             setMode("spotlight");
+            setRowsPerPage(1);
             setCurrentPage(1);
         }
     }
@@ -407,15 +409,8 @@ const App = () => {
         <main className="page" data-testid="page-root">
             <header className="page__header">
                 <div className="page__header-left">
-                    <h1 className="page__title">Phonebook Challenge</h1>
-                    <p className="page__subtitle">Build a simple contact directory</p>
-
-                    <div className="search" style={{ marginTop: '0.5rem' }}>
-                        <label htmlFor="search-input">Search</label>
-                        <div className="search__input-wrapper">
-                            <input id="search-input" type="search" placeholder="Search by name or phone" value={query} onChange={(e) => setQuery(e.target.value)} data-testid="search-input" />
-                        </div>
-                    </div>
+                    <h1 className="page__title">The Guest House Production Co.</h1>
+                    <p className="page__subtitle">Contact Management</p>
 
                     <p className="search__results" data-testid="results-count" style={{ marginTop: '0.5rem' }}>
                         Showing {filteredContacts.length} {filteredContacts.length === 1 ? "result" : "results"}
@@ -425,6 +420,12 @@ const App = () => {
                 </div>
 
                 <div className="page__header-right">
+                    <div className="search" style={{ marginRight: '1rem' }}>
+                        <label htmlFor="search-input">Search</label>
+                        <div className="search__input-wrapper">
+                            <input id="search-input" type="search" placeholder="Search by name or phone" value={query} onChange={(e) => setQuery(e.target.value)} data-testid="search-input" />
+                        </div>
+                    </div>
                     <button className="btn" type="button">
                         Customize
                     </button>
@@ -463,19 +464,10 @@ const App = () => {
             <div className="controls" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginTop: '0.75rem' }}>
                 <div>
                     <label htmlFor="mode-table">Mode:</label>
-                    <button id="mode-table" className={`btn ${mode === 'table' ? 'btn--primary' : ''}`} type="button" onClick={() => setMode('table')} aria-pressed={mode === 'table'}>Table</button>
-                    <button id="mode-spotlight" className={`btn ${mode === 'spotlight' ? 'btn--primary' : ''}`} type="button" onClick={() => { setMode('spotlight'); setRowsPerPage(1); }} aria-pressed={mode === 'spotlight'}>Spotlight</button>
+                    <button id="mode-table" className={`btn ${mode === 'table' ? 'btn--primary' : ''}`} type="button" onClick={() => { setMode('table'); setRowsPerPage(DEFAULT_ROWS); setCurrentPage(1); }} aria-pressed={mode === 'table'}>Table</button>
+                    <button id="mode-spotlight" className={`btn ${mode === 'spotlight' ? 'btn--primary' : ''}`} type="button" onClick={() => { setMode('spotlight'); setRowsPerPage(1); setCurrentPage(1); }} aria-pressed={mode === 'spotlight'}>Spotlight</button>
                 </div>
 
-                <div>
-                    <label htmlFor="rows">Rows per page</label>
-                    <select id="rows" value={rowsPerPage} onChange={(e) => setRowsPerPage(Number(e.target.value))} aria-label="Rows per page">
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={15}>15</option>
-                        <option value={25}>25</option>
-                    </select>
-                </div>
 
                 <div style={{ minWidth: 240 }}>
                     <label htmlFor="project-select">In Production</label>
@@ -528,6 +520,7 @@ const App = () => {
                             <li className="contacts-list__header">
                                 <span>Photo</span>
                                 <span>Full name</span>
+                                <span>Role</span>
                                 <span>Phone</span>
                                 <span>Email</span>
                             </li>
@@ -535,27 +528,45 @@ const App = () => {
                                 <li key={contact.id} className="contact-card">
                                     <img src={contact.photo} alt={`Photo of ${contact.name}`} className="contact-photo" />
                                     <div className="contact-info"><h3>{contact.name}</h3></div>
-                                    <div className="contact-info"><p><strong>Phone:</strong> {contact.phone}</p></div>
-                                    <div className="contact-info"><p><strong>Email:</strong> {contact.email}</p></div>
+                                    <div className="contact-info"><p className="contact-role">{contact.role}</p></div>
+                                    <div className="contact-info"><p>{contact.phone}</p></div>
+                                    <div className="contact-info"><p>{contact.email}</p></div>
                                 </li>
                             ))}
                         </ul>
 
                         {/* Pagnination (planned for ChakraUI component replacement next iteration) */}
-                        <div style={{ marginTop: '1rem' }} aria-label="Table pagination">
+                    </>
+                )}
+            </section>
+
+            {mode === 'table' ? (
+                <footer className="page__footer-chakra">
+                    <div className="footer-inner" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 var(--spacing-lg)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className="pagination-left" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                             <button className="btn" onClick={prevPage} aria-label="Previous page">Prev</button>
                             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                                 <button key={p} className={`btn ${p === currentPage ? 'btn--primary' : ''}`} onClick={() => goToPage(p)} aria-label={`Go to page ${p}`}>{p}</button>
                             ))}
                             <button className="btn" onClick={nextPage} aria-label="Next page">Next</button>
                         </div>
-                    </>
-                )}
-            </section>
 
-            <footer className="page__footer">
-                <small>Starter provided. Complete tasks per README and make this page shine.</small>
-            </footer>
+                        <div className="pagination-right" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                            <span className="rows-text" style={{ color: 'var(--text-muted, #9AA6A6)', fontSize: '0.9rem' }}>{(filteredContacts.length === 0) ? '0' : `${(currentPage - 1) * pageSize + 1}-${Math.min(currentPage * pageSize, filteredContacts.length)} of ${filteredContacts.length}`} rows</span>
+                            <select className="rows-select" value={rowsPerPage} onChange={(e) => setRowsPerPage(Number(e.target.value))} aria-label="Rows per page (footer)" style={{ padding: '0.25rem 0.5rem', borderRadius: 6 }}>
+                                <option value={5}>5</option>
+                                <option value={10}>10</option>
+                                <option value={15}>15</option>
+                                <option value={25}>25</option>
+                            </select>
+                        </div>
+                    </div>
+                </footer>
+            ) : (
+                <footer className="page__footer">
+                    <small>Starter provided. Complete tasks per README and make this page shine.</small>
+                </footer>
+            )}
         </main>
     );
 };
