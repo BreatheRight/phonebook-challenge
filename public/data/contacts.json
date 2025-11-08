@@ -1,32 +1,302 @@
 [
     {
-        "id": 101,
-        "name": "Ada Lovelace",
-        "phone": "(555) 010-0101",
-        "email": "ada@example.com"
+        "id": 1,
+        "name": "Aiony Haust",
+        "phone": "(555) 123-4567",
+        "email": "sarah.johnson@company.com",
+        "photo": "/ContactPictures/aiony-haust-3TLl_97HNJo-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Designer",
+        "bio": ""
     },
     {
-        "id": 102,
-        "name": "Alan Turing",
-        "phone": "(555) 010-0102",
-        "email": "alan@example.com"
+        "id": 2,
+        "name": "Alex Suprun",
+        "phone": "(555) 234-5678",
+        "email": "michael.chen@company.com",
+        "photo": "/ContactPictures/alex-suprun-ZHvM3XIOHoE-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Engineer",
+        "bio": ""
     },
     {
-        "id": 103,
-        "name": "Grace Hopper",
-        "phone": "(555) 010-0103",
-        "email": "grace@example.com"
+        "id": 3,
+        "name": "Ali Morshedlou",
+        "phone": "(555) 345-6789",
+        "email": "emily.rodriguez@company.com",
+        "photo": "/ContactPictures/ali-morshedlou-WMD64tMfc4k-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Producer",
+        "bio": ""
     },
     {
-        "id": 104,
-        "name": "Katherine Johnson",
-        "phone": "(555) 010-0104",
-        "email": "katherine@example.com"
+        "id": 4,
+        "name": "Brock Wegner",
+        "phone": "(555) 456-7890",
+        "email": "james.williams@company.com",
+        "photo": "/ContactPictures/brock-wegner-7yONARoUsbY-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Manager",
+        "bio": ""
     },
     {
-        "id": 105,
-        "name": "Donald Knuth",
-        "phone": "(555) 010-0105",
-        "email": "donald@example.com"
+        "id": 5,
+        "name": "Brooke Cagle",
+        "phone": "(555) 567-8901",
+        "email": "lisa.anderson@company.com",
+        "photo": "/ContactPictures/brooke-cagle-nNj_e121IbI-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Coordinator",
+        "bio": ""
+    },
+    {
+        "id": 6,
+        "name": "Cesar Rincon",
+        "phone": "(555) 678-9012",
+        "email": "david.thompson@company.com",
+        "photo": "/ContactPictures/cesar-rincon-XHVpWcr5grQ-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 7,
+        "name": "Christina Wocintechchat",
+        "phone": "(555) 789-0123",
+        "email": "jennifer.lee@company.com",
+        "photo": "/ContactPictures/christina-wocintechchat-com-SJvDxw0azqw-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Designer",
+        "bio": ""
+    },
+    {
+        "id": 8,
+        "name": "Craig Mckay",
+        "phone": "(555) 890-1234",
+        "email": "robert.martinez@company.com",
+        "photo": "/ContactPictures/craig-mckay-jmURdhtm7Ng-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Lead",
+        "bio": ""
+    },
+    {
+        "id": 9,
+        "name": "Erik Lucatero",
+        "phone": "(555) 901-2345",
+        "email": "amanda.taylor@company.com",
+        "photo": "/ContactPictures/erik-lucatero-d2MSDujJl2g-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 10,
+        "name": "Fabio Henning",
+        "phone": "(555) 012-3456",
+        "email": "christopher.brown@company.com",
+        "photo": "/ContactPictures/fabio-henning-mMTqXCM1pYU-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Producer",
+        "bio": ""
+    },
+    {
+        "id": 11,
+        "name": "Gama Films",
+        "phone": "(555) 135-7911",
+        "email": "lena.gentry@company.com",
+        "photo": "/ContactPictures/gama-films-PkbVlqo2IEU-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Coordinator",
+        "bio": ""
+    },
+    {
+        "id": 12,
+        "name": "Imansyah Muhamad",
+        "phone": "(555) 246-8022",
+        "email": "calvin.collins@company.com",
+        "photo": "/ContactPictures/imansyah-muhamad-putera-n4KewLKFOZw-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Researcher",
+        "bio": ""
+    },
+    {
+        "id": 13,
+        "name": "Ivana Cajina",
+        "phone": "(555) 357-9133",
+        "email": "chaz.gregory@company.com",
+        "photo": "/ContactPictures/ivana-cajina-_7LbC5J-jw4-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Designer",
+        "bio": ""
+    },
+    {
+        "id": 14,
+        "name": "Jack Finnigan",
+        "phone": "(555) 468-0244",
+        "email": "elaine.hughes@company.com",
+        "photo": "/ContactPictures/jack-finnigan-rriAI0nhcbc-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 15,
+        "name": "Jake Fagan",
+        "phone": "(555) 579-1355",
+        "email": "monica.franco@company.com",
+        "photo": "/ContactPictures/jake-fagan-Y7C7F26fzZM-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Lead",
+        "bio": ""
+    },
+    {
+        "id": 16,
+        "name": "Jeremy Brady",
+        "phone": "(555) 680-2466",
+        "email": "rory.dickerson@company.com",
+        "photo": "/ContactPictures/jeremy-brady-B7X7R_Q0c-c-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Coordinator",
+        "bio": ""
+    },
+    {
+        "id": 17,
+        "name": "Jonas Kakaroto",
+        "phone": "(555) 791-3577",
+        "email": "seth.wheeler@company.com",
+        "photo": "/ContactPictures/jonas-kakaroto-Fs8ZFfVh-cg-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 18,
+        "name": "Jonas Kakaroto",
+        "phone": "(555) 802-4688",
+        "email": "ryland.ferguson@company.com",
+        "photo": "/ContactPictures/jonas-kakaroto-mjRwhvqEC0U-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Producer",
+        "bio": ""
+    },
+    {
+        "id": 19,
+        "name": "Leilani Angel",
+        "phone": "(555) 913-5799",
+        "email": "jaylee.odom@company.com",
+        "photo": "/ContactPictures/leilani-angel-K84vnnzxmTQ-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Designer",
+        "bio": ""
+    },
+    {
+        "id": 20,
+        "name": "Ludovic Migneault",
+        "phone": "(555) 024-6800",
+        "email": "gaven.lowe@company.com",
+        "photo": "/ContactPictures/ludovic-migneault-4uj3iZ5m084-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Manager",
+        "bio": ""
+    },
+    {
+        "id": 21,
+        "name": "Nina Hill",
+        "phone": "(555) 135-7912",
+        "email": "conor.salas@company.com",
+        "photo": "/ContactPictures/nina-hill-aWVi7wTfLD0-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 22,
+        "name": "Noemi Macavei",
+        "phone": "(555) 246-8023",
+        "email": "whitney.terrell@company.com",
+        "photo": "/ContactPictures/noemi-macavei-katocz-or6mrFMVmHM-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Producer",
+        "bio": ""
+    },
+    {
+        "id": 23,
+        "name": "Philip Martin",
+        "phone": "(555) 357-9134",
+        "email": "gracelyn.carr@company.com",
+        "photo": "/ContactPictures/philip-martin-5aGUyCW_PJw-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Coordinator",
+        "bio": ""
+    },
+    {
+        "id": 24,
+        "name": "Prince Akachi",
+        "phone": "(555) 468-0245",
+        "email": "wade.lamb@company.com",
+        "photo": "/ContactPictures/prince-akachi-LWkFHEGpleE-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 25,
+        "name": "Ransford Quaye",
+        "phone": "(555) 579-1356",
+        "email": "savion.pennington@company.com",
+        "photo": "/ContactPictures/ransford-quaye-DzAFv1iVMGg-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Lead",
+        "bio": ""
+    },
+    {
+        "id": 26,
+        "name": "Riccardo Pitzalis",
+        "phone": "(555) 680-2467",
+        "email": "tyson.mcconnell@company.com",
+        "photo": "/ContactPictures/riccardo-pitzalis-5ja5MkgoGAU-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 27,
+        "name": "Sinitta Leunen",
+        "phone": "(555) 791-3578",
+        "email": "rowan.liu@company.com",
+        "photo": "/ContactPictures/sinitta-leunen-mtHQ342ezmY-unsplash.jpg",
+        "project": "ORUN Live at Soho",
+        "role": "Designer",
+        "bio": ""
+    },
+    {
+        "id": 28,
+        "name": "Slav Romanov",
+        "phone": "(555) 802-4689",
+        "email": "elyse.boyle@company.com",
+        "photo": "/ContactPictures/slav-romanov-BrEAp01_m5w-unsplash.jpg",
+        "project": "Laurie Anderson Retrospective",
+        "role": "Coordinator",
+        "bio": ""
+    },
+    {
+        "id": 29,
+        "name": "Vicky Hladynets",
+        "phone": "(555) 913-5790",
+        "email": "makayla.villegas@company.com",
+        "photo": "/ContactPictures/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg",
+        "project": "greenhouse",
+        "role": "Engineer",
+        "bio": ""
+    },
+    {
+        "id": 30,
+        "name": "Vince Fleming",
+        "phone": "(555) 024-6801",
+        "email": "noah.ramirez@company.com",
+        "photo": "/ContactPictures/vince-fleming-j3lf-Jn6deo-unsplash.jpg",
+        "project": "This is America - An Anthology 2023-2024",
+        "role": "Lead",
+        "bio": ""
     }
 ]

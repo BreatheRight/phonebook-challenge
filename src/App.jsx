@@ -320,14 +320,49 @@ const App = () => {
     const [error, setError] = useState(null);
     const [query, setQuery] = useState("");
 
+    useEffect(() => {
+        let cancelled = false;
+
+        async function loadContacts() {
+            setLoading(true);
+            setError(null);
+            try {
+                const res = await fetch('/data/contacts.json');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                if (!cancelled) {
+                    if (Array.isArray(data) && data.length > 0) {
+                        setContacts(data);
+                    } else {
+                        // empty or unexpected response: fall back to hardcoded list
+                        setContacts(CONTACTS);
+                    }
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setError(err.message || String(err));
+                    setContacts(CONTACTS);
+                }
+            } finally {
+                if (!cancelled) setLoading(false);
+            }
+        }
+
+        loadContacts();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
     const [mode, setMode] = useState("table"); // two modes for user selection: defualt table or spotlight for singles
     const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProject, setSelectedProject] = useState("");
 
-    // Add contact form (repurposed from original template)
     const [form, setForm] = useState({ name: "", phone: "", email: "" });
     const [showAddForm, setShowAddForm] = useState(false);
+    const [errors, setErrors] = useState({});
 
     // Filter contacts, case-insensitive
     const filteredContacts = useMemo(() => {
@@ -347,7 +382,6 @@ const App = () => {
     const pageSize = mode === "spotlight" || Number(rowsPerPage) === 1 ? 1 : Number(rowsPerPage);
     const totalPages = Math.max(1, Math.ceil(filteredContacts.length / pageSize));
 
-    // Ensuring currentPage in range when filteredContacts or pageSize changes
     useEffect(() => {
         if (currentPage > totalPages) {
             setCurrentPage(1);
@@ -366,7 +400,6 @@ const App = () => {
         goToPage(currentPage + 1);
     }
 
-    // When selecting a project, switch into spotlight mode and reset page
     function handleSelectProject(p) {
         setSelectedProject(p);
         if (p) {
@@ -376,11 +409,32 @@ const App = () => {
         }
     }
 
-    // Compute contacts for current page
+    // Highlight bonus search compon
     const pagedContacts = useMemo(() => {
         const start = (currentPage - 1) * pageSize;
         return filteredContacts.slice(start, start + pageSize);
     }, [filteredContacts, currentPage, pageSize]);
+
+    function renderHighlighted(text, searchQuery) {
+        if (!searchQuery || !text) return text;
+        const lowerText = text.toLowerCase();
+        const lowerSearch = searchQuery.toLowerCase().trim();
+        const index = lowerText.indexOf(lowerSearch);
+
+        if (index === -1) return text;
+
+        const before = text.slice(0, index);
+        const match = text.slice(index, index + lowerSearch.length);
+        const after = text.slice(index + lowerSearch.length);
+
+        return (
+            <>
+                {before}
+                <mark>{match}</mark>
+                {after}
+            </>
+        );
+    }
 
     // Form handlers
     function toggleAddForm() {
@@ -388,21 +442,45 @@ const App = () => {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        if (!form.name || form.name.trim().length < 2) return alert("Name required (min 2 characters)");
-        if (!form.phone) return alert("Phone is required");
+        const nextErrors = {};
+
+        // Name
+       if (!form.name || form.name.trim().length < 2) {
+            nextErrors.name = "Name is required (min 2 characters)";
+        }
+
+        // Phone
+        const digits = (form.phone || "").replace(/\D/g, "");
+        if (!form.phone) {
+            nextErrors.phone = "Phone is required";
+        } else if (digits.length !== 10) {
+            nextErrors.phone = "Phone must contain exactly 10 digits";
+        }
+
+        // Email
+        if (!form.email || !form.email.includes("@")) {
+            nextErrors.email = "Email is required and must include '@'";
+        }
+
+        // If any errors, show them inline and abort submit
+        if (Object.keys(nextErrors).length > 0) {
+            setErrors(nextErrors);
+            return;
+        }
         const newContact = {
             id: contacts.length + 1,
             name: form.name.trim(),
             phone: form.phone.trim(),
             email: form.email.trim(),
-            photo: "/ContactPictures/aiony-haust-3TLl_97HNJo-unsplash.jpg",
-            project: "greenhouse",
+            photo: "Contacticon.png",
+            project: "",
             role: "",
             bio: "",
         };
         setContacts([newContact, ...contacts]);
         setForm({ name: "", phone: "", email: "" });
         setShowAddForm(false);
+        setErrors({});
     }
 
     return (
@@ -427,7 +505,7 @@ const App = () => {
                         </div>
                     </div>
                     <button className="btn" type="button">
-                        Customize
+                        Edit Teams
                     </button>
                     <div className="add-contact-wrapper">
                         <button className="btn btn--primary" type="button" onClick={toggleAddForm}>
@@ -439,15 +517,18 @@ const App = () => {
                                 <form onSubmit={handleSubmit} noValidate>
                                     <div className="field">
                                         <label htmlFor="name">Name</label>
-                                        <input id="name" name="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required minLength={2} />
+                                        <input id="name" name="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required minLength={2} aria-describedby={errors.name ? 'name-error' : undefined} />
+                                        {errors.name && <span id="name-error" className="field-error" style={{ color: 'var(--error, #c53030)', fontSize: '0.9rem' }}>{errors.name}</span>}
                                     </div>
                                     <div className="field">
                                         <label htmlFor="phone">Phone</label>
-                                        <input id="phone" name="phone" inputMode="tel" placeholder="(555) 555-5555" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required />
+                                        <input id="phone" name="phone" inputMode="tel" placeholder="(555) 555-5555" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required aria-describedby={errors.phone ? 'phone-error' : undefined} />
+                                        {errors.phone && <span id="phone-error" className="field-error" style={{ color: 'var(--error, #c53030)', fontSize: '0.9rem' }}>{errors.phone}</span>}
                                     </div>
                                     <div className="field">
                                         <label htmlFor="email">Email</label>
-                                        <input id="email" name="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                                        <input id="email" name="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} aria-describedby={errors.email ? 'email-error' : undefined} />
+                                        {errors.email && <span id="email-error" className="field-error" style={{ color: 'var(--error, #c53030)', fontSize: '0.9rem' }}>{errors.email}</span>}
                                     </div>
                                     <div className="form__actions">
                                         <button className="btn btn--primary" type="submit" data-testid="btn-add">Add Contact</button>
@@ -493,7 +574,7 @@ const App = () => {
                                 <div key={contact.id} className="spotlight-card" style={{ display: 'flex', gap: '1rem', padding: '1rem', alignItems: 'center' }}>
                                     <img src={contact.photo} alt={`Photo of ${contact.name}`} style={{ width: 160, height: 160, borderRadius: 8, objectFit: 'cover' }} />
                                     <div>
-                                        <h2 style={{ margin: 0 }}>{contact.name}</h2>
+                                        <h2 style={{ margin: 0 }}>{renderHighlighted(contact.name, query)}</h2>
                                         <p style={{ margin: 0, opacity: 0.8 }}>{contact.role}</p>
                                         <p style={{ marginTop: '0.5rem' }}><strong>Phone:</strong> {contact.phone}</p>
                                         <p><strong>Email:</strong> {contact.email}</p>
@@ -527,9 +608,9 @@ const App = () => {
                             {pagedContacts.map((contact) => (
                                 <li key={contact.id} className="contact-card">
                                     <img src={contact.photo} alt={`Photo of ${contact.name}`} className="contact-photo" />
-                                    <div className="contact-info"><h3>{contact.name}</h3></div>
+                                    <div className="contact-info"><h3>{renderHighlighted(contact.name, query)}</h3></div>
                                     <div className="contact-info"><p className="contact-role">{contact.role}</p></div>
-                                    <div className="contact-info"><p>{contact.phone}</p></div>
+                                    <div className="contact-info"><p>{renderHighlighted(contact.phone, query)}</p></div>
                                     <div className="contact-info"><p>{contact.email}</p></div>
                                 </li>
                             ))}
@@ -564,7 +645,7 @@ const App = () => {
                 </footer>
             ) : (
                 <footer className="page__footer">
-                    <small>Starter provided. Complete tasks per README and make this page shine.</small>
+                    <small>Phonebook Challenge CIS4160 - Section 4</small>
                 </footer>
             )}
         </main>

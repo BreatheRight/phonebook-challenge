@@ -46,7 +46,7 @@
     color: var(--fg);
     cursor: pointer;
     font-weight: 500;
-    transition: all var(--transition-fast);
+    transition: all var(--transition-normal);
     white-space: nowrap;
 }
 
@@ -78,15 +78,14 @@
 
 .add-contact-dropdown {
     position: absolute;
-    top: var(--spacing-sm);
+    top: var(--spacing-xxl);
     right: 0;
-    background: var(--bg-secondary);
+    background: var(--bg);
     border: 1px solid var(--border-light);
     border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    min-width: 320px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    z-index: 100;
+    padding: var(--spacing-sm);
+    min-width: 200px;
+    min-height:200px;
 }
 
 .add-contact-dropdown h3 {
@@ -114,7 +113,7 @@
 .add-contact-dropdown .form__actions {
     display: flex;
     gap: var(--spacing-sm);
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
 }
 
 .add-contact-dropdown .form__actions button {
@@ -151,7 +150,7 @@
 .search__results {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    margin: 0;
+
 }
 
 /* Inputs for form adjus. */
@@ -181,7 +180,7 @@ select:focus {
     border-color: var(--accent);
     background: var(--bg-secondary);
 }
-/* --contacts list/table-- */
+/* --contacts table-- */
 .contacts {
     margin-top: var(--spacing-lg);
 }
@@ -219,7 +218,19 @@ select:focus {
     transition: background var(--transition-fast);
 }
 
-.contact-card:last-child {
+
+.contacts-list__header span,
+.contact-card > * {
+    padding-right: var(--spacing-sm);
+}
+.contacts-list__header
+/* --footer-- */
+ span:not(:last-child),
+.contact-card > :not(:last-child) {
+    border-right: 1px solid var(-order-light);
+    padding-right: calc(var(--spacing-sm) - 6px);
+}
+
     border-bottom: none;
 }
 
@@ -234,7 +245,7 @@ select:focus {
     object-fit: cover;
     border: 2px solid var(--border-light);
 }
-/* Column dividers (will attempt to reworkusing ChakraUI) */
+/* Column dividers for tableview (will attempt to reworkusing ChakraUI) */
 .contacts-list__header span,
 .contact-card > * {
     padding-right: var(--spacing-sm);
@@ -270,6 +281,14 @@ select:focus {
     color: var(--text-secondary);
 }
 
+/* Using accents true turqouse for highlights in search */
+mark {
+    background: rgba(10, 140, 140, 0.95);
+    color: #ffffff;
+    padding: 0 0.12rem;
+    border-radius: 2px;
+}
+
 .contact-info strong {
     display: none;
 }
@@ -292,15 +311,9 @@ select:focus {
     flex-wrap: wrap;
     max-width: 100%;
 }
-.page__footer-chakra .pagination-left .btn {
-    padding: 0.4rem 0.6rem;
-    min-width: 40px;
-    text-align: center;
 
-/* --experimenting with responsive design */
-
-@media (max-width: 900px) {
-    .page {
+@media (max-width: 768px) {
+    .page { /* removing all other columns but name on mobile; will fix later */
         padding: var(--spacing-lg) var(--spacing-md);
     }
 
@@ -324,32 +337,4 @@ select:focus {
 
     .contacts-list__header span:nth-child(3),
     .contacts-list__header span:nth-child(4),
-    .contacts-list__header span:nth-child(5),
-    .contact-card > :nth-child(3),
-    .contact-card > :nth-child(4),
-    .contact-card > :nth-child(5) {
-        display: none; /* removing all other columns but name on mobile; will fix later */
-    }
-
-    .search__controls {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .search__input-wrapper {
-        width: 100%;
-        max-width: none;
-    }
-}
-
-@media (max-width: 600px) {
-    .page__title {
-        font-size: 1.5rem;
-    }
-
-    .btn {
-        padding: var(--spacing-xs) var(--spacing-md);
-        font-size: 0.9rem;
-    }
-}
 }
